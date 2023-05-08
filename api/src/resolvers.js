@@ -5,7 +5,7 @@
 
 module.exports = {
   Query: {
-    pets(_, __, { models }) {
+    pets(_, { input }, { models }) {
       return models.Pet.findMany()
     },
   },
