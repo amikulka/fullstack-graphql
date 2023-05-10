@@ -3,5 +3,12 @@
     "id": "jBWMVGjm50l6LGwepDoty",
     "username": "frontendmaster"
   },
-  "pet": []
+  "pet": [
+    {
+      "id": "kW-tUzjQxWkbtlqr9nlEZ",
+      "createdAt": 1683738092367,
+      "name": "nike",
+      "type": "DOG"
+    }
+  ]
 }
