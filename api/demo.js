@@ -6,15 +6,27 @@ const typeDefs = gql`
     JORDAN
     NIKE
     ADIDAS
+    TIMBERLAND
   }
   type User {
     email: String!
     avatar: String
     friends: [User]!
   }
-  type Shoe {
+  interface Shoe {
     brand: ShoeType!
     size: Int!
+  }
+
+  type Sneaker implements Shoe {
+    brand: ShoeType!
+    size: Int!
+    sport: String!
+  }
+  type Boot implements Shoe {
+    brand: ShoeType!
+    size: Int!
+    hasGrip: Boolean!
   }
   input ShoesInput {
     brand: ShoeType
@@ -38,9 +50,9 @@ const resolvers = {
   Query: {
     shoes(_, { input }) {
       return [
-        { brand: 'NIKE', size: 12 },
-        { brand: 'ADIDAS', size: 10 },
-      ].filter((shoe) => shoe.brand === input.brand)
+        { brand: 'NIKE', size: 12, sport: 'basketball' },
+        { brand: 'TIMBERLAND', size: 10, hasGrip: true },
+      ]
     },
     me() {
       return {
@@ -53,6 +65,12 @@ const resolvers = {
   Mutation: {
     newShoe(_, { input }) {
       return input
+    },
+  },
+  Shoe: {
+    __resolveType(shoe) {
+      if (shoe.sport) return 'Sneaker'
+      return 'Boot'
     },
   },
 }
